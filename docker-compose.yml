@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: student-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ISLABdb
+      MYSQL_USER: Jason922b
+      MYSQL_PASSWORD: Jason922b
+    ports:
+      - "0.0.0.0:3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+    restart: always
+    command: 
+      - --bind-address=0.0.0.0  # 允許外部連線
+      - --default-authentication-plugin=mysql_native_password  # 確保密碼兼容性
+
+volumes:
+  mysql-data:
